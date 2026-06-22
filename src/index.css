@@ -1,0 +1,150 @@
+@import "tailwindcss";
+@import "tw-animate-css";
+
+@custom-variant dark (&:is(.dark *));
+
+@theme inline {
+  --color-background: hsl(var(--background));
+  --color-foreground: hsl(var(--foreground));
+  --color-border: hsl(var(--border));
+  --color-input: hsl(var(--input));
+  --color-ring: hsl(var(--ring));
+  --color-card: hsl(var(--card));
+  --color-card-foreground: hsl(var(--card-foreground));
+  --color-primary: hsl(var(--primary));
+  --color-primary-foreground: hsl(var(--primary-foreground));
+  --color-secondary: hsl(var(--secondary));
+  --color-secondary-foreground: hsl(var(--secondary-foreground));
+  --color-muted: hsl(var(--muted));
+  --color-muted-foreground: hsl(var(--muted-foreground));
+  --color-accent: hsl(var(--accent));
+  --color-accent-foreground: hsl(var(--accent-foreground));
+  --color-destructive: hsl(var(--destructive));
+  --font-sans: var(--app-font-sans);
+  --font-mono: var(--app-font-mono);
+  --radius-sm: calc(var(--radius) - 4px);
+  --radius-md: calc(var(--radius) - 2px);
+  --radius-lg: var(--radius);
+}
+
+:root {
+  --background: 220 20% 4%;
+  --foreground: 210 100% 95%;
+  --border: 210 30% 20%;
+  --input: 210 30% 15%;
+  --ring: 196 100% 50%;
+  --card: 220 20% 7%;
+  --card-foreground: 210 100% 95%;
+  --primary: 196 100% 50%;
+  --primary-foreground: 220 20% 4%;
+  --secondary: 270 80% 55%;
+  --secondary-foreground: 210 100% 95%;
+  --muted: 220 15% 15%;
+  --muted-foreground: 210 30% 60%;
+  --accent: 196 100% 50%;
+  --accent-foreground: 220 20% 4%;
+  --destructive: 0 84% 60%;
+  --app-font-sans: 'Rajdhani', 'Orbitron', system-ui, sans-serif;
+  --app-font-mono: 'Courier New', monospace;
+  --radius: 0.5rem;
+}
+
+@layer base {
+  * {
+    @apply border-border;
+    box-sizing: border-box;
+  }
+  html, body {
+    @apply bg-background text-foreground font-sans antialiased;
+    background-color: hsl(220, 20%, 4%);
+    overflow: hidden;
+    /* Prevent double-tap zoom on mobile */
+    touch-action: manipulation;
+    -webkit-tap-highlight-color: transparent;
+    /* Ensure full viewport height on mobile */
+    height: 100%;
+  }
+  #root {
+    height: 100%;
+  }
+}
+
+/* Neon glow utilities */
+@layer utilities {
+  .neon-blue {
+    text-shadow: 0 0 10px #00d4ff, 0 0 20px #00d4ff, 0 0 40px #00d4ff;
+  }
+  .neon-purple {
+    text-shadow: 0 0 10px #cc00ff, 0 0 20px #cc00ff, 0 0 40px #cc00ff;
+  }
+  .neon-gold {
+    text-shadow: 0 0 10px #ffcc00, 0 0 20px #ffcc00;
+  }
+  .glow-box-blue {
+    box-shadow: 0 0 20px #00d4ff44, 0 0 40px #00d4ff22, inset 0 0 20px #00d4ff11;
+  }
+  .glow-box-purple {
+    box-shadow: 0 0 20px #cc00ff44, 0 0 40px #cc00ff22, inset 0 0 20px #cc00ff11;
+  }
+  .scan-line {
+    background: repeating-linear-gradient(
+      0deg,
+      transparent,
+      transparent 2px,
+      rgba(0, 212, 255, 0.03) 2px,
+      rgba(0, 212, 255, 0.03) 4px
+    );
+  }
+}
+
+/* Animations */
+@keyframes flicker {
+  0%, 100% { opacity: 1; }
+  92% { opacity: 1; }
+  93% { opacity: 0.8; }
+  94% { opacity: 1; }
+  96% { opacity: 0.9; }
+  97% { opacity: 1; }
+}
+@keyframes pulse-glow {
+  0%, 100% { box-shadow: 0 0 20px #00d4ff44; }
+  50% { box-shadow: 0 0 40px #00d4ff88, 0 0 80px #00d4ff44; }
+}
+@keyframes grid-move {
+  from { background-position: 0 0; }
+  to { background-position: 0 80px; }
+}
+@keyframes float {
+  0%, 100% { transform: translateY(0px); }
+  50% { transform: translateY(-12px); }
+}
+@keyframes spin-slow {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+@keyframes slide-in-up {
+  from { transform: translateY(40px); opacity: 0; }
+  to { transform: translateY(0); opacity: 1; }
+}
+@keyframes count-down {
+  from { transform: scale(1.5); opacity: 0; }
+  50% { opacity: 1; }
+  to { transform: scale(0.8); opacity: 0; }
+}
+@keyframes shake {
+  0%, 100% { transform: translate(0, 0) rotate(0deg); }
+  15% { transform: translate(-4px, 2px) rotate(-0.5deg); }
+  30% { transform: translate(4px, -2px) rotate(0.5deg); }
+  45% { transform: translate(-3px, 3px) rotate(-0.3deg); }
+  60% { transform: translate(3px, -1px) rotate(0.3deg); }
+  75% { transform: translate(-2px, 2px) rotate(-0.2deg); }
+}
+
+.animate-flicker { animation: flicker 8s infinite; }
+.animate-pulse-glow { animation: pulse-glow 2s ease-in-out infinite; }
+.animate-grid-move { animation: grid-move 2s linear infinite; }
+.animate-float { animation: float 3s ease-in-out infinite; }
+.animate-spin-slow { animation: spin-slow 10s linear infinite; }
+.animate-slide-in-up { animation: slide-in-up 0.5s ease-out forwards; }
+.animate-count-down { animation: count-down 0.8s ease-in-out forwards; }
+.animate-shake { animation: shake 0.4s ease-in-out; }
